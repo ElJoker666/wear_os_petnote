@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/fragment_note.xml -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:elevation="4dp"
+    android:backgroundTint="@color/cardBackgroundColor"
+    android:radius="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Título de la nota -->
+        <TextView
+            android:id="@+id/noteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Título de Nota"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <!-- Línea separadora -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <!-- Contenido de la nota -->
+        <TextView
+            android:id="@+id/noteContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contenido de ejemplo de la nota."
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:maxLines="3"
+            android:ellipsize="end" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
