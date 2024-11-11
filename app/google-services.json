@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "495566950980",
+    "project_id": "petnote-5c819",
+    "storage_bucket": "petnote-5c819.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495566950980:android:6749d402ca76f15afa2211",
+        "android_client_info": {
+          "package_name": "com.example.petnote_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvyZJqclpHW91rTCJdU3dFbHsvLIsn9SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495566950980:android:440ad70222ff58f7fa2211",
+        "android_client_info": {
+          "package_name": "com.example.petnote_wear"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvyZJqclpHW91rTCJdU3dFbHsvLIsn9SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
