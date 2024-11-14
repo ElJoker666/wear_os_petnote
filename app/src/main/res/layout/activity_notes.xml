@@ -4,39 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@color/black"
     tools:context=".MainActivity">
-
-    <!-- Título de la aplicación -->
 
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mis Notas"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
-        />
+        android:textSize="14sp"
+    android:textColor="@color/white"
+    android:textStyle="bold"
+    android:layout_marginTop="8dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:gravity="center" />
 
-
-    <!-- RecyclerView para mostrar las notas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notes_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/titleText"
+        android:layout_marginTop="4dp"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintTop_toBottomOf="@id/titleText"
+    app:layout_constraintBottom_toTopOf="@id/refreshButton"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:clipToPadding="true"
+    android:padding="2dp" />
+
+    <Button
+        android:id="@+id/refreshButton"
+        android:text="Refrescar"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:clipToPadding="false"
-        android:padding="8dp" />
+        android:padding="5dp"
+        android:textSize="13sp"
+    android:layout_marginBottom="10dp"
+    android:backgroundTint="@color/colorAccent"
+    android:radius="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

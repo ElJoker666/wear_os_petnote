@@ -2,12 +2,20 @@ package com.example.petnote_wear
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.Timestamp
+import java.util.*
+import java.text.SimpleDateFormat
+import java.util.Locale
+
+// Define el formato de fecha, reemplazando "dd/MM/yyyy" con el formato que estás usando para endDate
+val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
 class MainActivity : ComponentActivity() {
 
@@ -38,6 +46,17 @@ class MainActivity : ComponentActivity() {
             // Si no está autenticado, intentar autenticarlo o mostrar un error
             authenticateUser()
         }
+
+        // Configurar el botón de refrescar
+        val refreshButton: Button = findViewById(R.id.refreshButton)
+        refreshButton.setOnClickListener {
+            val user = auth.currentUser
+            if (user != null) {
+                loadUserNotes(user.email ?: "")  // Recargar las notas del usuario
+            } else {
+                authenticateUser()  // Intentar autenticar si no hay usuario
+            }
+        }
     }
 
     private fun authenticateUser() {
@@ -48,7 +67,6 @@ class MainActivity : ComponentActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = FirebaseAuth.getInstance().currentUser
-                    Log.d("User", "User authenticated: ${user?.email}")
                     loadUserNotes(user?.email ?: "")
                 } else {
                     Log.d("Authentication", "Authentication failed: ${task.exception?.message}")
@@ -57,12 +75,10 @@ class MainActivity : ComponentActivity() {
             }
     }
 
-    // Modificado para usar los nombres correctos de los campos: title, description y endDate
     private fun loadUserNotes(userEmail: String) {
         if (userEmail.isNotEmpty()) {
-            // Cargar las notas del usuario utilizando su correo como userId
             firestore.collection("users")
-                .document(userEmail)  // Usamos el email del usuario autenticado
+                .document(userEmail)
                 .collection("notes")
                 .get()
                 .addOnSuccessListener { documents ->
@@ -71,8 +87,21 @@ class MainActivity : ComponentActivity() {
                         val title = document.getString("title") ?: "Sin título"
                         val description = document.getString("description") ?: "Sin descripción"
                         val endDate = document.getString("endDate") ?: "Sin fecha de fin"
-                        notesList.add(Note(title, description, endDate))
+
+                        // Filtrar las notas cuya fecha aún no ha pasado
+                        val noteDate = dateFormat.parse(endDate)
+                        val currentDate = System.currentTimeMillis()
+                        if (noteDate != null && noteDate.time >= currentDate) {
+                            notesList.add(Note(title, description, endDate))
+                        }
                     }
+
+                    // Ordenar las notas por fecha en orden ascendente (de la más antigua a la más reciente)
+                    notesList.sortBy { note ->
+                        dateFormat.parse(note.endDate)?.time ?: 0L  // Ordena por la fecha en formato de milisegundos
+                    }
+
+                    // Configurar el adaptador con la lista ordenada
                     noteAdapter = NoteAdapter(notesList)
                     notesRecyclerView.adapter = noteAdapter
                 }
@@ -84,5 +113,4 @@ class MainActivity : ComponentActivity() {
             Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
         }
     }
-
 }
